@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardContent } from './components/ui/card';
 
 const fullData = [
   { fullName: 'APPLIED PHYSIOLOGY - M.S.Ed.', name: 'Applied Physiology', leads: 595, cold: 592, enrolled: 1 },
