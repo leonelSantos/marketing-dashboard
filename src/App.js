@@ -25,7 +25,7 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82ca9d'
 
 const Dashboard = () => {
   const openDatasetLink = () => {
-    window.open('https://miamiedu-my.sharepoint.com/:x:/r/personal/d_iacomoni_miami_edu/Documents/SEHD%20Marketing/Marketing%20Campaigns%20Evaluation.xlsx?d=w1c951b07ab344e48a78f19744e60db9e&csf=1&web=1&e=yHWnLh', '_blank', 'noopener,noreferrer');
+    window.open('https://miamiedu-my.sharepoint.com/:f:/r/personal/d_iacomoni_miami_edu/Documents/SEHD%20Marketing?csf=1&web=1&e=MBuPRw', '_blank', 'noopener,noreferrer');
   };
   return (
     <div className="p-4 space-y-4 font-inter">
