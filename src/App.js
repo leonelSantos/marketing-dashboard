@@ -7,11 +7,11 @@ const fullData = [
   { fullName: 'ATHLETIC TRAINING - M.S.Ed.', name: 'Athletic Training', leads: 264, cold: 263, enrolled: 0 },
   { fullName: 'COMMUNITY SOCIAL CHANGE - M.S.Ed.', name: 'Community Social Change', leads: 41, cold: 41, enrolled: 0 },
   { fullName: 'COUNSELING - M.S.Ed.', name: 'Counseling', leads: 69, cold: 61, enrolled: 3 },
-  { fullName: 'HIGHER ED Administration - M.S.Ed.', name: 'Higher Ed Admin', leads: 83, cold: 83, enrolled: 0 },
-  { fullName: 'HIGHER ED Community - Ed.D.', name: 'Higher Ed Community', leads: 1, cold: 1, enrolled: 0 },
-  { fullName: 'HIGHER ED Leadership - Ed.D.', name: 'Higher Ed Leadership', leads: 100, cold: 100, enrolled: 0 },
+  { fullName: 'HIGHER ED Administration - M.S.Ed.', name: 'H.E Admin', leads: 83, cold: 83, enrolled: 0 },
+  { fullName: 'HIGHER ED Community - Ed.D.', name: 'H.E Community', leads: 1, cold: 1, enrolled: 0 },
+  { fullName: 'HIGHER ED Leadership - Ed.D.', name: 'H.E Leadership', leads: 100, cold: 100, enrolled: 0 },
   { fullName: 'Sport Administration - M.S.Ed.', name: 'Sport Admin', leads: 1, cold: 1, enrolled: 0 },
-];
+]; 
 
 const pieData = fullData.filter(item => item.leads > 0);
 
