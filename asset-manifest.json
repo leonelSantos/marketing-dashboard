@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/marketing-dashboard/static/css/main.04491bbb.css",
-    "main.js": "/marketing-dashboard/static/js/main.88e703ea.js",
+    "main.js": "/marketing-dashboard/static/js/main.de1aee1a.js",
     "static/js/453.49ab5d40.chunk.js": "/marketing-dashboard/static/js/453.49ab5d40.chunk.js",
     "index.html": "/marketing-dashboard/index.html",
     "main.04491bbb.css.map": "/marketing-dashboard/static/css/main.04491bbb.css.map",
-    "main.88e703ea.js.map": "/marketing-dashboard/static/js/main.88e703ea.js.map",
+    "main.de1aee1a.js.map": "/marketing-dashboard/static/js/main.de1aee1a.js.map",
     "453.49ab5d40.chunk.js.map": "/marketing-dashboard/static/js/453.49ab5d40.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.04491bbb.css",
-    "static/js/main.88e703ea.js"
+    "static/js/main.de1aee1a.js"
   ]
 }
