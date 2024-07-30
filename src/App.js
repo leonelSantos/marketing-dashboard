@@ -25,7 +25,7 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82ca9d'
 const Dashboard = () => {
   return (
     <div className="p-4 space-y-4 font-inter">
-      <h1 className="text-3xl font-bold mb-8 text-center text-gray-800 border-b pb-4">Marketing Campaigns Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center text-gray-800 border-b pb-4">Vrooman FY 23' & '24 Campaign Dashboard</h1>
       
       <Card className="shadow-lg">
         <CardHeader>Leads by Campaign</CardHeader>
