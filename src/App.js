@@ -3,17 +3,22 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, PieChart, Pie, Cell, Resp
 import { Card, CardHeader, CardContent } from './components/ui/card';
 
 const fullData = [
-  { fullName: 'APPLIED PHYSIOLOGY - M.S.Ed.', name: 'Applied Physiology', leads: 595, cold: 592, enrolled: 1 },
-  { fullName: 'ATHLETIC TRAINING - M.S.Ed.', name: 'Athletic Training', leads: 264, cold: 263, enrolled: 0 },
-  { fullName: 'COMMUNITY SOCIAL CHANGE - M.S.Ed.', name: 'Community Social Change', leads: 41, cold: 41, enrolled: 0 },
-  { fullName: 'COUNSELING - M.S.Ed.', name: 'Counseling', leads: 69, cold: 61, enrolled: 3 },
-  { fullName: 'HIGHER ED Administration - M.S.Ed.', name: 'H.E Admin', leads: 83, cold: 83, enrolled: 0 },
-  { fullName: 'HIGHER ED Community - Ed.D.', name: 'H.E Community', leads: 1, cold: 1, enrolled: 0 },
-  { fullName: 'HIGHER ED Leadership - Ed.D.', name: 'H.E Leadership', leads: 100, cold: 100, enrolled: 0 },
-  { fullName: 'Sport Administration - M.S.Ed.', name: 'Sport Admin', leads: 1, cold: 1, enrolled: 0 },
+  { fullName: 'APPLIED PHYSIOLOGY - M.S.Ed.', name: 'AAPH', leads: 595, cold: 592, enrolled: 1 },
+  { fullName: 'ATHLETIC TRAINING - M.S.Ed.', name: 'ATHT', leads: 264, cold: 263, enrolled: 0 },
+  { fullName: 'COMMUNITY SOCIAL CHANGE - M.S.Ed.', name: 'CSC', leads: 41, cold: 41, enrolled: 0 },
+  { fullName: 'COUNSELING MENTAL HEALTH- M.S.Ed.', name: 'CNSM', leads: 69, cold: 61, enrolled: 3 },
+  { fullName: 'HIGHER ED ADMINISTRATION - M.S.Ed.', name: 'HE-ADM', leads: 83, cold: 83, enrolled: 0 },
+  { fullName: 'HIGHER ED COMMUNITY - Ed.D.', name: 'HE-COM', leads: 1, cold: 1, enrolled: 0 },
+  { fullName: 'HIGHER ED LEADERSHIP - Ed.D.', name: 'HE-LD', leads: 100, cold: 100, enrolled: 0 },
+  { fullName: 'SPORTS ADMINISTRATION - M.S.Ed.', name: 'SADM', leads: 1, cold: 1, enrolled: 0 },
 ]; 
 
-const pieData = fullData.filter(item => item.leads > 0);
+//const pieData = fullData.filter(item => item.leads > 0);
+const pieData = fullData.filter(item => item.leads > 0).map(item => ({
+  fullName: item.fullName,
+  name: item.name,
+  leads: item.leads
+}));
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82ca9d', '#ffc658', '#8dd1e1'];
 
@@ -30,7 +35,7 @@ const Dashboard = () => {
               <XAxis dataKey="name" axisLine={false} tickLine={false} />
               <YAxis axisLine={false} tickLine={false} />
               <Tooltip />
-              <Legend />
+              
               <Bar dataKey="leads" fill="#8884d8">
                 {fullData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={`url(#colorGradient-${index})`} />
@@ -57,7 +62,7 @@ const Dashboard = () => {
               <XAxis dataKey="name" axisLine={false} tickLine={false} />
               <YAxis axisLine={false} tickLine={false} />
               <Tooltip />
-              <Legend />
+              
               <Bar dataKey="leads" fill="url(#colorLeads)" />
               <Bar dataKey="cold" fill="url(#colorCold)" />
               <Bar dataKey="enrolled" fill="url(#colorEnrolled)" />
@@ -89,18 +94,19 @@ const Dashboard = () => {
                 data={pieData}
                 cx="50%"
                 cy="50%"
-                innerRadius={100}
-                outerRadius={140}
+                innerRadius={120}
+                outerRadius={200}
                 fill="#8884d8"
                 paddingAngle={5}
                 dataKey="leads"
+                nameKey="fullName" 
               >
                 {pieData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={`url(#pieColorGradient-${index})`} />
                 ))}
               </Pie>
               <Tooltip />
-              <Legend layout="vertical" align="right" verticalAlign="middle" />
+              <Legend layout="vertical" align="right" verticalAlign="middle" formatter={(value, entry, index) => pieData[index].fullName}/>
               <defs>
                 {pieData.map((entry, index) => (
                   <linearGradient id={`pieColorGradient-${index}`} x1="0" y1="0" x2="0" y2="1" key={`gradient-${index}`}>
