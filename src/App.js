@@ -7,7 +7,7 @@ const fullData = [
   { fullName: 'APPLIED PHYSIOLOGY - M.S.Ed.', name: 'AAPH', leads: 595, cold: 592, enrolled: 1 },
   { fullName: 'ATHLETIC TRAINING - M.S.Ed.', name: 'ATHT', leads: 264, cold: 263, enrolled: 0 },
   { fullName: 'COMMUNITY SOCIAL CHANGE - M.S.Ed.', name: 'CSC', leads: 41, cold: 41, enrolled: 0 },
-  { fullName: 'COUNSELING MENTAL HEALTH- M.S.Ed.', name: 'CNSM', leads: 69, cold: 61, enrolled: 3 },
+  { fullName: 'COUNSELING MENTAL HEALTH- M.S.Ed.', name: 'CNSM', leads: 69, cold: 61, enrolled: 4 },
   { fullName: 'HIGHER ED ADMINISTRATION - M.S.Ed.', name: 'HE-ADM', leads: 83, cold: 83, enrolled: 0 },
   { fullName: 'HIGHER ED COMMUNITY - Ed.D.', name: 'HE-COM', leads: 1, cold: 1, enrolled: 0 },
   { fullName: 'HIGHER ED LEADERSHIP - Ed.D.', name: 'HE-LD', leads: 100, cold: 100, enrolled: 0 },
