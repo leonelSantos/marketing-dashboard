@@ -32,7 +32,8 @@ const dataWithEnrollmentBreakdown = fullData.map(item => ({
   costPerLead: COST_PER_LEAD.toFixed(2),
   costPerEnrollment: item.enrolled > 0 ? (TOTAL_INVESTMENT * (item.enrolled / TOTAL_ENROLLED) / item.enrolled).toFixed(2) : 'N/A',
   totalEnrollmentCost: (item.enrolled * COST_PER_ENROLLMENT).toFixed(2),
-  percentageOfEnrollments: ((item.enrolled / TOTAL_ENROLLED) * 100).toFixed(2)
+  percentageOfEnrollments: ((item.enrolled / TOTAL_ENROLLED) * 100).toFixed(2),
+  percentageOfLeads: ((item.leads / TOTAL_LEADS) * 100).toFixed(2)
 }));
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82ca9d', '#ffc658', '#8dd1e1'];
