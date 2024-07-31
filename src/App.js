@@ -21,7 +21,7 @@ const pieData = fullData.filter(item => item.leads > 0).map(item => ({
   leads: item.leads
 }));
 
-const TOTAL_INVESTMENT = 206000;
+const TOTAL_INVESTMENT = 266000;
 const TOTAL_LEADS = 1154;
 const TOTAL_ENROLLED = fullData.reduce((sum, item) => sum + item.enrolled, 0);
 const COST_PER_LEAD = TOTAL_INVESTMENT / TOTAL_LEADS;
