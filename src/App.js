@@ -21,6 +21,20 @@ const pieData = fullData.filter(item => item.leads > 0).map(item => ({
   leads: item.leads
 }));
 
+const TOTAL_INVESTMENT = 206000;
+const TOTAL_LEADS = 1154;
+const TOTAL_ENROLLED = fullData.reduce((sum, item) => sum + item.enrolled, 0);
+const COST_PER_LEAD = TOTAL_INVESTMENT / TOTAL_LEADS;
+const COST_PER_ENROLLMENT = TOTAL_INVESTMENT / TOTAL_ENROLLED;
+
+const dataWithEnrollmentBreakdown = fullData.map(item => ({
+  ...item,
+  costPerLead: COST_PER_LEAD.toFixed(2),
+  costPerEnrollment: item.enrolled > 0 ? (TOTAL_INVESTMENT * (item.enrolled / TOTAL_ENROLLED) / item.enrolled).toFixed(2) : 'N/A',
+  totalEnrollmentCost: (item.enrolled * COST_PER_ENROLLMENT).toFixed(2),
+  percentageOfEnrollments: ((item.enrolled / TOTAL_ENROLLED) * 100).toFixed(2)
+}));
+
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82ca9d', '#ffc658', '#8dd1e1'];
 
 const Dashboard = () => {
@@ -39,22 +53,36 @@ const Dashboard = () => {
         </button>
       </div>
       <Card className="shadow-lg">
-        <CardHeader>Leads by Campaign</CardHeader>
+        <CardHeader>Campaign-wide Lead Generation and Cost Breakdown</CardHeader>
         <CardContent className="transform rotate-x-10 perspective-1000">
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={fullData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <div className="mb-4 text-center">
+            <p className="text-lg font-semibold">Total Investment: ${TOTAL_INVESTMENT.toLocaleString()}</p>
+            <p className="text-lg font-semibold">Total Leads: {TOTAL_LEADS.toLocaleString()}</p>
+            <p className="text-xl font-bold">Overall Cost per Lead: ${COST_PER_LEAD.toFixed(2)}</p>
+          </div>
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart data={dataWithEnrollmentBreakdown} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
               <XAxis dataKey="name" axisLine={false} tickLine={false} />
               <YAxis axisLine={false} tickLine={false} />
-              <Tooltip />
-              
-              <Bar dataKey="leads" fill="#8884d8">
-                {fullData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={`url(#colorGradient-${index})`} />
+              <Tooltip content={({ active, payload, label }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <div className="bg-white p-2 border rounded shadow">
+                      <p className="font-bold">{label}</p>
+                      <p>Leads: {payload[0].value}</p>
+                    </div>
+                  );
+                }
+                return null;
+              }} />
+              <Bar dataKey="leads" fill="#82ca9d">
+                {dataWithEnrollmentBreakdown.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={`url(#leadsBreakdownGradient-${index})`} />
                 ))}
               </Bar>
               <defs>
-                {fullData.map((entry, index) => (
-                  <linearGradient id={`colorGradient-${index}`} x1="0" y1="0" x2="0" y2="1" key={`gradient-${index}`}>
+                {dataWithEnrollmentBreakdown.map((entry, index) => (
+                  <linearGradient id={`leadsBreakdownGradient-${index}`} x1="0" y1="0" x2="0" y2="1" key={`leadsBreakdownGradient-${index}`}>
                     <stop offset="5%" stopColor={COLORS[index % COLORS.length]} stopOpacity={0.8}/>
                     <stop offset="95%" stopColor={COLORS[index % COLORS.length]} stopOpacity={0.3}/>
                   </linearGradient>
@@ -62,37 +90,67 @@ const Dashboard = () => {
               </defs>
             </BarChart>
           </ResponsiveContainer>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {dataWithEnrollmentBreakdown.map((item, index) => (
+              <div key={index} className="bg-gray-100 p-3 rounded-lg">
+                <h3 className="font-semibold text-sm">{item.name}</h3>
+                <p className="text-md">Leads: <span className="font-bold">{item.leads}</span></p>
+                <p className="text-sm">% of Total Leads: {item.percentageOfLeads}%</p>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
 
       <Card className="shadow-lg">
-        <CardHeader>Leads Funnel</CardHeader>
+        <CardHeader>Campaign-wide Enrollment and Cost Breakdown</CardHeader>
         <CardContent className="transform rotate-x-10 perspective-1000">
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={fullData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <div className="mb-4 text-center">
+            <p className="text-lg font-semibold">Total Investment: ${TOTAL_INVESTMENT.toLocaleString()}</p>
+            <p className="text-lg font-semibold">Total Enrollments: {TOTAL_ENROLLED.toLocaleString()}</p>
+            <p className="text-xl font-bold">Overall Cost per Enrollment: ${COST_PER_ENROLLMENT.toFixed(2)}</p>
+          </div>
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart data={dataWithEnrollmentBreakdown} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
               <XAxis dataKey="name" axisLine={false} tickLine={false} />
               <YAxis axisLine={false} tickLine={false} />
-              <Tooltip />
-              
-              <Bar dataKey="leads" fill="url(#colorLeads)" />
-              <Bar dataKey="cold" fill="url(#colorCold)" />
-              <Bar dataKey="enrolled" fill="url(#colorEnrolled)" />
+              <Tooltip content={({ active, payload, label }) => {
+                if (active && payload && payload.length) {
+                  return (
+                    <div className="bg-white p-2 border rounded shadow">
+                      <p className="font-bold">{label}</p>
+                      <p>Enrollments: {payload[0].value}</p>
+                      <p>Total Cost: ${(payload[0].value * COST_PER_ENROLLMENT).toFixed(2)}</p>
+                    </div>
+                  );
+                }
+                return null;
+              }} />
+              <Bar dataKey="enrolled" fill="#82ca9d">
+                {dataWithEnrollmentBreakdown.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={`url(#enrollmentBreakdownGradient-${index})`} />
+                ))}
+              </Bar>
               <defs>
-                <linearGradient id="colorLeads" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#82ca9d" stopOpacity={0.3}/>
-                </linearGradient>
-                <linearGradient id="colorCold" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#ffc658" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#ffc658" stopOpacity={0.3}/>
-                </linearGradient>
-                <linearGradient id="colorEnrolled" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#8dd1e1" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#8dd1e1" stopOpacity={0.3}/>
-                </linearGradient>
+                {dataWithEnrollmentBreakdown.map((entry, index) => (
+                  <linearGradient id={`enrollmentBreakdownGradient-${index}`} x1="0" y1="0" x2="0" y2="1" key={`enrollmentBreakdownGradient-${index}`}>
+                    <stop offset="5%" stopColor={COLORS[index % COLORS.length]} stopOpacity={0.8}/>
+                    <stop offset="95%" stopColor={COLORS[index % COLORS.length]} stopOpacity={0.3}/>
+                  </linearGradient>
+                ))}
               </defs>
             </BarChart>
           </ResponsiveContainer>
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {dataWithEnrollmentBreakdown.map((item, index) => (
+              <div key={index} className="bg-gray-100 p-3 rounded-lg">
+                <h3 className="font-semibold text-sm">{item.name}</h3>
+                <p className="text-md">Enrollments: <span className="font-bold">{item.enrolled}</span></p>
+                <p className="text-sm">% of Total Enrollments: {item.percentageOfEnrollments}%</p>
+                <p className="text-xs text-gray-500">Leads: {item.leads}</p>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
 
